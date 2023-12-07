@@ -688,19 +688,19 @@ _Ночная программа NUR NIGHT_
         markup.add(types.InlineKeyboardButton("❓F.A.Q.", url="https://vk.com/@nur.festival-nur-2023-faq"))
         bot.send_message(message.chat.id, msg, reply_markup=markup, parse_mode="Markdown")
 
-    elif (message.text == "/view stat"):
+    elif (message.text == "/view_static"):
       markup = types.InlineKeyboardMarkup()
       statistics_write(message.chat.id,message.text)
-      pd.set_option('display.max_colwidth',100)
-      #df = pd.read_csv('data_nur_bot.csv', names=['data','id','command'])
-      df = pd.read_csv('data_nur_bot.csv')
+      #pd.set_option('display.max_colwidth',100)
+      df = pd.read_csv('data_nur_bot.csv', names=['data','id','command'])
+      #df = pd.read_csv('data_nur_bot.csv')
       number_of_users = len(df['id'].unique())
       number_of_command=len(df['command'])
       msg1 = 'За всё время бота использовало: ' + str(number_of_users)+ '\n\n'
-      msg2='За всё время использовано комманд: ' + str(number_of_command)+ '\n\n' + df.to_string()
+      msg2='За всё время использовано комманд: ' + str(number_of_command) #+ '\n\n' + df.to_string()
       msg=msg1+msg2
       markup.add(types.InlineKeyboardButton("Вернуться в главное меню", callback_data="back"))
-      bot.send_message(message.chat.id, text="u", reply_markup=markup)
+      bot.send_message(message.chat.id, msg, reply_markup=markup)
  
     elif (message.text == "Вернуться в главное меню"):
         statistics_write(message.chat.id,message.text)
@@ -740,7 +740,7 @@ def statistic_read(user_id):
     print(number_of_users)
     return message_to_user
 
-try:
-   bot.polling(non_stop=True, interval=2)
-except Exception as e:
-    print("Возникли технические неполадки. Приносим свои изменения!")
+#try:
+bot.polling(non_stop=True, interval=2)
+#except Exception as e:
+ #   print("Возникли технические неполадки. Приносим свои изменения!")
