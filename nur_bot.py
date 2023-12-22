@@ -8,9 +8,12 @@ import time
 #from aiogram import types
 
 
+BOT_TOKEN='6375057076:AAGfhVl06PyjhJddaxJt-eTWEr3YDJQhxo8'
 
+bot = telebot.TeleBot(BOT_TOKEN)
 
-bot = telebot.TeleBot('6375057076:AAGfhVl06PyjhJddaxJt-eTWEr3YDJQhxo8')
+path_to_statistics='data_nur_bot.csv'
+
 
 @bot.message_handler(commands=['start'])
 
@@ -42,18 +45,6 @@ def start(message):
 @bot.callback_query_handler(func=lambda call:True)
 def response(function_call):
   if function_call.message:
-     """if function_call.data == "yes":
-        second_mess = "Международный фестиваль медиаискусства NUR состоится в Казани с 8 по 10 сентября \n\nЧто такое NUR? NUR - это\n— инсталляции\n— выставки цифрового искусства\n— аудиовизуальные перформансы\n— лекции\n— ночная программа\n\nА больше о фестивале ты можешь узнать на нашем сайте 👇"
-        markup = types.InlineKeyboardMarkup()
-        markup.add(types.InlineKeyboardButton("Перейти на сайт", url="https://nurfestival.com/"))
-        bot.send_message(function_call.message.chat.id, second_mess, reply_markup=markup)
-        bot.answer_callback_query(function_call.id)
-        #time.sleep(1)
-        markup = types.InlineKeyboardMarkup()
-        third_mess="Также ты можешь принять участие в фестивале в роли волонтера 🤗\nДля этого тебе нужно заполнить гугл форму"
-        markup.add(types.InlineKeyboardButton("Заполнить форму", url="https://forms.gle/XjUFbEUnEcdXs9peA"))
-        bot.send_message(function_call.message.chat.id, third_mess, reply_markup=markup)
-        #bot.answer_callback_query(function_call.id)"""
      
      if (function_call.data == "⚡️Купить билеты"):
         statistics_write(function_call.message.chat.id,function_call.message.text)
@@ -177,13 +168,6 @@ def func(message):
       bot.send_message(message.chat.id, text="Какие локации вас интересуют?", reply_markup=markup)
     
     elif (message.text=="Платные локации"):
-      """btn1=types.KeyboardButton("Дом типографии Каримовых")
-      btn2=types.KeyboardButton("Artplay Media")
-      btn3=types.KeyboardButton("Городской магистрат")
-      statistics_write(message.chat.id,message.text)
-      markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
-      back = types.KeyboardButton("Вернуться в главное меню")
-      #markup.add(btn1, btn2, btn3, btn4, btn5, btn7, btn8, back)"""
       msg="""*Локация 1* 
 _Дом типографии Каримовых_
 ул. Парижской Коммуны, 20/37
@@ -462,70 +446,10 @@ Panterra — Terminal"""
       markup.add(types.InlineKeyboardButton("Перейти в 2ГИС", url="https://go.2gis.com/c3ww0v"))
 
       bot.send_message(message.chat.id, msg, reply_markup=markup, parse_mode="Markdown")
-
-      """elif (message.text=="Национальная библиотека РТ"):
-      statistics_write(message.chat.id,message.text)
-      markup = types.InlineKeyboardMarkup()
-      url_location1="https://sun9-18.userapi.com/impg/jYPwSmNqrjpyaL-muU-jhzxaw0swUonvqW-vmw/hB91wJKUPvQ.jpg?size=2560x2560&quality=95&sign=4fd6c5397094334762b750efb918299a&type=album"
-      url_location1_1="https://sun9-73.userapi.com/impg/2jBKkiusn2x1GTcM1GTERBvuPDDfvOzNR6_gtQ/iHM5CvLKQz8.jpg?size=2560x2560&quality=95&sign=c7533ccee3ee26ea017f0779098dd98c&type=album"
-      caption1=("Традиционно штабом «НУРа» станет Национальная библиотека Республики Татарстан — величественное здание в центре Казани. \nКогда-то здесь находился ленинский мемориал, но в 2020 году комплекс пережил масштабные изменения и стал современным общественным пространством.\n\n"+
-                "В дни фестиваля Национальная библиотека будет выполнять несколько функций:\n\n"+
-                "✅ Образовательный центр, где состоятся бесплатные лекции и дискуссии при участии артистов и лидеров индустрии. Расписание и ссылки на регистрацию мы опубликуем позже.\n\n"+
-                "✅ Площадка маркета НУР, где вы сможете приобрести билеты на фестиваль и наш мерч.\n\n"+
-                "✅ Центр аккредитации, где артисты и представители прессы могут получить специальные бейджи и получить необходимую информацию.")
-      markup.add(types.InlineKeyboardButton("Показать локацию в картах", url="https://yandex.ru/maps/-/CPfyNdR"))
-      bot.send_media_group(message.chat.id, [telebot.types.InputMediaPhoto(url_location1, caption1),telebot.types.InputMediaPhoto(url_location1_1)])
-      bot.send_message(message.chat.id, text="Ссылка на локацию 🗺️", reply_markup=markup)
-                                            
-    elif (message.text=="Парк «Черное озеро»"):
-      statistics_write(message.chat.id,message.text)
-      markup = types.InlineKeyboardMarkup()
-      url_location1="https://sun9-2.userapi.com/impg/ppo-KqnB8TTMyP_Qj9EOoR3ijHz17bEd_KcfdQ/xm-ItY8WDmo.jpg?size=2560x2560&quality=95&sign=1690d6a5e975c4e0386a71bb232a6c0a&type=album"
-      url_location1_1="https://sun9-47.userapi.com/impg/xYbEIBF2V5MZuBt0SQzsZhOQkb4cZ1aVErwLiA/RlH05fq4d0E.jpg?size=2560x2560&quality=95&sign=b845f9d54495ee3ad233d59a3c76fc79&type=album"
-      caption1=("Парк «Черное озеро» — один из старейших в Казани.\n\n"+
-                "Парк получил название благодаря одноименному озеру, которое решили благоустроить в 1829 году. К концу века водоем стал зарастать водорослями и городские власти его засыпали, но позже он был возрожден. В советское время зимой заливали каток, и благодаря этому событию в Казани появилась своя хоккейная команда.\n\n"+
-                "В 2021 году на Черном озере завершился последний этап очередного благоустройства. Этим занималось московское архитектурное бюро Wowhaus, которое создавало проекты для парка Горького в Москве, Крымской набережной и института «Стрелка». В том числе они обновили символ парка — Арку Влюбленных. Ее акустический эффект позволяет общаться шепотом, располагаясь друг напротив друга лицом к стене, и отчетливо слышать собеседника.")
-      markup.add(types.InlineKeyboardButton("Показать локацию в картах", url="https://yandex.ru/maps/-/CTC~Zpb"))
-      bot.send_media_group(message.chat.id, [telebot.types.InputMediaPhoto(url_location1, caption1),telebot.types.InputMediaPhoto(url_location1_1)])
-      bot.send_message(message.chat.id, text="Ссылка на локацию 🗺️", reply_markup=markup)
-
-
-    elif (message.text=="Экстрим-парк «УРАМ»"):
-      statistics_write(message.chat.id,message.text)
-      markup = types.InlineKeyboardMarkup()
-      url_location1="https://sun9-12.userapi.com/impg/btaUyhv5AFikOPI9nMYnAIs_suo6zGXvXr0ssQ/b44SRX19ZvM.jpg?size=2560x2560&quality=95&sign=4584064343c70df881fccbd28931e728&type=album"
-      url_location1_1="https://sun9-1.userapi.com/impg/lw_SKAPA9hXdpeWB-MTZZicOysA0vGWq3hYO0A/3a1qNllYdoM.jpg?size=2560x2560&quality=95&sign=9e3ba89d6ba33865e34804e0acad9b76&type=album"
-      caption1=("Еще одна локация фестиваля НУР в этом году — самый большой экстрим-парк в России «УРАМ»\n\n"+
-                "Крытая часть парка появилась осенью 2021 года. Над проектом работал консорциум компании Legato Sports Architecture и бюро KOSMOS — второе может быть знакомо вам, например, по спортивному центру Nike и павильону для музея «Гараж» в Парке Горького.\n\n"+
-                "Одна из инсталляций в основной программе разместится в огромном эйр-парке — уникальном объекте деревянной спортивной архитектуры и обладателе премии Архиwood-2021. Из-за волн, которые создают рельефы фигур, эту зону называют фанерным морем. Ежедневно здесь тренируются начинающие спортсмены и приезжают оттачивать навыки профессионалы высочайшего уровня.")
-      markup.add(types.InlineKeyboardButton("Показать локацию в картах", url="https://yandex.ru/maps/-/CTGEzyr"))
-      bot.send_media_group(message.chat.id, [telebot.types.InputMediaPhoto(url_location1, caption1),telebot.types.InputMediaPhoto(url_location1_1)])
-      bot.send_message(message.chat.id, text="Ссылка на локацию 🗺️", reply_markup=markup)
-
-
-    elif (message.text=="Artplay Media"):
-      statistics_write(message.chat.id,message.text)
-      markup = types.InlineKeyboardMarkup()
-      url_location1="https://sun9-14.userapi.com/impg/F71fHTxWVDtDk8MBXyfAU2gytGfEXXkXAjhrlQ/oxAm56Rw_ns.jpg?size=2560x2560&quality=95&sign=82e98efb84d0ef0eea0e9a553b1bc476&type=album"
-      url_location1_1="https://sun9-68.userapi.com/impg/r4JdF8Np8J_koCuoOlIt2r0STlPfLQjycsncrw/x3tRpOeXxOU.jpg?size=2560x2560&quality=95&sign=886448bde3b835f878dc8330ec40fca6&type=album"
-      caption1=("Уникальный центр цифрового искусства открылся в Казани этой весной и уже стал заметной точкой на культурной карте города. Здесь проходят мультимедийные выставки в жанре edutainment (education+entertainment — образование и развлечение), разработанные на стыке цифровых технологий и кинематографа, а также театральные, музыкальные и пластические перформансы.\n\n"+ 
-                "20 одновременно работающих проекторов, объемный звук и угол обзора 360 градусов позволяют зрителям полностью погрузиться в художественные произведения так, что эмоции от контента захватят вас с головой. Зрители премьеры перформанса PENTA, который проходил в Artplay Media в июне, наверняка это подтвердят!")
-      markup.add(types.InlineKeyboardButton("Показать локацию в картах", url="https://yandex.ru/profile/-/C-EHQuD"))
-      bot.send_media_group(message.chat.id, [telebot.types.InputMediaPhoto(url_location1, caption1),telebot.types.InputMediaPhoto(url_location1_1)])
-      bot.send_message(message.chat.id, text="Ссылка на локацию 🗺️", reply_markup=markup)"""
     
     elif (message.text=="Ночная программа"):
-      #time.sleep(3000)
       statistics_write(message.chat.id,message.text)
       markup = types.InlineKeyboardMarkup()
-      """url_location1="https://t.me/nurfestival/393"
-      #url_location1_1="https://sun9-68.userapi.com/impg/r4JdF8Np8J_koCuoOlIt2r0STlPfLQjycsncrw/x3tRpOeXxOU.jpg?size=2560x2560&quality=95&sign=886448bde3b835f878dc8330ec40fca6&type=album"
-      caption1=("Расскрываем тайнy локации: ночная программа фестиваля пройдет в здании бывшего управления завода «Теплоприбор»!\n\n"+
-                "Здание уникально тем, что возводилось во времена, когда масштаб и размах приветствовался во всем: отсюда высокие потолки и большие оконные проемы, просторные холлы и широкие лестницы.\n\n"+
-                "Скоро из типовой советской постройки оно превратится в современное бизнес-пространство в индустриальном стиле. И NUR NIGHT — это единственная возможность незабываемо провести ночь на «Теплоприборе»💥\n\n"+
-                "Билеты по ссылке: nurfestival.com")
-      markup.add(types.InlineKeyboardButton("Показать локацию в картах", url="https://yandex.ru/profile/-/C-rgapa"))"""
-      #bot.send_media_group(message.chat.id, [telebot.types.InputMediaVideo(url_location1, caption=caption1)])
       msg="""НОЧНАЯ ПРОГРАММА
 
 *9 сентября*
@@ -645,22 +569,6 @@ _Ночная программа NUR NIGHT_
       bot.send_media_group(message.chat.id, [telebot.types.InputMediaVideo(url, caption=caption1)])
 
     elif (message.text=="/help"):
-      """statistics_write(message.chat.id,message.text)
-      markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
-      btn1 = types.KeyboardButton("⚡️Купить билеты")
-      btn2 = types.KeyboardButton("ℹ️ Информация о фестивале")
-      btn5 = types.KeyboardButton("📍Локации фестиваля")
-      btn4 = types.KeyboardButton("💚Художники")
-      btn3 = types.KeyboardButton("🟢Мы в соцсетях")
-      markup.add(btn1, btn2, btn3, btn4, btn5)
-      markup = types.InlineKeyboardMarkup(row_width=1)
-      button1 = types.InlineKeyboardButton(text = '⚡️Купить билеты', callback_data='⚡️Купить билеты')
-      button2 = types.InlineKeyboardButton(text = 'ℹ️ Информация о фестивале', callback_data='ℹ️ Информация о фестивале')
-      button3 = types.InlineKeyboardButton(text = '📍Локации фестиваля', callback_data='📍Локации фестиваля')
-      button4 = types.InlineKeyboardButton(text = '💚Художники', callback_data='💚Художники')
-      button5 = types.InlineKeyboardButton(text = '🟢Мы в соцсетях', callback_data='👨‍💻 Мы в соцсетях 👨‍💻')
-      markup.add(button1, button2, button3, button4, button5)
-      bot.send_message(message.chat.id, text="В меню можете выбрать то, что вас интересует", reply_markup=markup)"""
       markup = types.InlineKeyboardMarkup()
       statistics_write(message.chat.id,message.text)
       pd.set_option('display.max_colwidth',1000)
@@ -688,19 +596,19 @@ _Ночная программа NUR NIGHT_
         markup.add(types.InlineKeyboardButton("❓F.A.Q.", url="https://vk.com/@nur.festival-nur-2023-faq"))
         bot.send_message(message.chat.id, msg, reply_markup=markup, parse_mode="Markdown")
 
-    elif (message.text == "/view_static"):
+    elif (message.text == "/view stat"):
       markup = types.InlineKeyboardMarkup()
       statistics_write(message.chat.id,message.text)
-      #pd.set_option('display.max_colwidth',100)
-      df = pd.read_csv('data_nur_bot.csv', names=['data','id','command'])
-      #df = pd.read_csv('data_nur_bot.csv')
+      pd.set_option('display.max_colwidth',100)
+      #df = pd.read_csv('data_nur_bot.csv', names=['data','id','command'])
+      df = pd.read_csv('data_nur_bot.csv')
       number_of_users = len(df['id'].unique())
       number_of_command=len(df['command'])
       msg1 = 'За всё время бота использовало: ' + str(number_of_users)+ '\n\n'
-      msg2='За всё время использовано комманд: ' + str(number_of_command) #+ '\n\n' + df.to_string()
+      msg2='За всё время использовано комманд: ' + str(number_of_command)+ '\n\n' + df.to_string()
       msg=msg1+msg2
       markup.add(types.InlineKeyboardButton("Вернуться в главное меню", callback_data="back"))
-      bot.send_message(message.chat.id, msg, reply_markup=markup)
+      bot.send_message(message.chat.id, text="u", reply_markup=markup)
  
     elif (message.text == "Вернуться в главное меню"):
         statistics_write(message.chat.id,message.text)
@@ -729,18 +637,18 @@ import os
 import pandas as pd
 def statistics_write(user_id, command):
     data = datetime.datetime.today().strftime("%Y-%m-%d-%H-%M")
-    with open('data_nur_bot.csv', 'a', newline="", encoding='UTF-8') as fil:
+    with open(path_to_statistics, 'a', newline="", encoding='UTF-8') as fil:
         wr = csv.writer(fil, delimiter=',')
         wr.writerow([data, user_id, command])
 
 def statistic_read(user_id):
-    df = pd.read_csv('data_nur_bot.csv', names=['data','id','command'])
+    df = pd.read_csv(path_to_statistics, names=['data','id','command'])
     number_of_users = len(df['id'].unique())
     message_to_user += 'За всё время бота использовало: ' + str(number_of_users)
     print(number_of_users)
     return message_to_user
 
-#try:
-bot.polling(non_stop=True, interval=2)
-#except Exception as e:
- #   print("Возникли технические неполадки. Приносим свои изменения!")
+try:
+   bot.polling(non_stop=True, interval=2)
+except Exception as e:
+    print("Возникли технические неполадки. Приносим свои изменения!")
