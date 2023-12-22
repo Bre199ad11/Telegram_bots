@@ -1,5 +1,5 @@
 This is bot who was create for NUR Festival
 
-data_nur_bot - csv file where the bot usage statistics are recorded
+path_to_statistics - путь к csv файлу со статистикой
 
 nur_bot - main file
