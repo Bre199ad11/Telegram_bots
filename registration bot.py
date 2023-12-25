@@ -1,9 +1,6 @@
 import telebot
 from telebot import types # для указание типов
 
-from aiogram.fsm.state import State, StatesGroup
-from aiogram.fsm.context import FSMContext
-
 import time
 
 import datetime
@@ -22,17 +19,9 @@ path_to_statistic='D:/nur_bot/registration bot/data.csv'
 
 start_stop=True
 
-
 #id Дениса
 den_id=123704982
 my_id=644440906
-
-class registration(StatesGroup):
-    fio_ans = State() 
-    phone_ans = State()
-    company_ans= State()
-    age_ans= State()
-
 
 @bot.message_handler(commands=["start"])
 def start(message):
@@ -48,11 +37,13 @@ def start(message):
 
 @bot.message_handler(commands=["register"])
 def register_start(message):
-    if (check_user(message.chat.id)=='not_passed'):
-        bot.reply_to(message, 'Введите ваше ФИО:')
-        bot.register_next_step_handler(message, register_name)
-    else:
-        bot.send_message(message.chat.id, text='Вы уже прошли регистрацию!', reply_markup=None)
+    global start_stop
+    if (start_stop==True):
+        if (check_user(message.chat.id)=='not_passed'):
+            bot.reply_to(message, 'Введите ваше ФИО:')
+            bot.register_next_step_handler(message, register_name)
+        else:
+            bot.send_message(message.chat.id, text='Вы уже прошли регистрацию!', reply_markup=None)
 
 # Функция-обработчик ввода ФИО
 def register_name(message):
@@ -76,7 +67,7 @@ def register_age(message, name, company):
     else:
         statistics_write(message.chat.id, message.chat.username, name, company, age)
         # Отправляем данные пользователю
-        bot.send_message(message.chat.id, text= f'Вы успешно зарегистрированы!\n\nИмя: {name}\nКомпания: {company}\nВозраст: {age}',  reply_markup=None)
+        bot.send_message(message.chat.id, text= f'Вы успешно зарегистрированы!\nИмя: {name}\nКомпания: {company}\nВозраст: {age}',  reply_markup=None)
 
 @bot.message_handler(content_types=['text'])
 def message(message):
